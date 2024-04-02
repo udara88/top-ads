@@ -11,6 +11,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 const NavBar = () => {
   return (
     <header className="w-full px-4 py-4 bg-primary">
@@ -26,9 +37,26 @@ const NavBar = () => {
           ))}
         </ul>
 
-        <ul className="max-lg:hidden font-semibold">
-          <Link href="/sign-in">Sign in</Link>
-        </ul>
+        <Dialog>
+          <DialogTrigger asChild>
+            <ul className="max-lg:hidden font-semibold">
+              
+              <Button className="text-base" >Sign in</Button>
+            </ul>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <div className="hidden max-lg:block">
           <Sheet key="left">
@@ -42,7 +70,7 @@ const NavBar = () => {
               />
             </SheetTrigger>
             <SheetContent side="left" className="">
-              <SheetHeader >
+              <SheetHeader>
                 <SheetTitle className="sm:text-2xl text-xl text-primary ">
                   TopAds.lk
                 </SheetTitle>
@@ -58,7 +86,9 @@ const NavBar = () => {
                   </ul>
 
                   <ul className="flex flex-col justify-start">
-                    <Link href="/sign-in" className="p-4 font-semibold">Sign in</Link>
+                    <Link href="/sign-in" className="p-4 font-semibold">
+                      Sign in
+                    </Link>
                   </ul>
                 </SheetDescription>
               </SheetHeader>
