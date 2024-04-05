@@ -17,6 +17,21 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    firstname:{
+      type:String,
+      
+    },
+    lastname:{
+      type:String
+    },
+    mobile:{
+      type:String
+    },
+
+    imageUrl:{
+      type:String
+    }
   },
   { timestamps: true }
 );

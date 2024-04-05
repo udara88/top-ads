@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { footerLinks } from "../../../../constants";
+import { footerLinks } from "../../../constants";
 
 
 const Footer = () => {
@@ -13,7 +13,7 @@ const Footer = () => {
     <>
       <div className="border-t-2 border-t-primary w-full"></div>
       <footer>
-        <div className="max-container grid grid-cols-5 gap-2 max-lg:hidden ">
+        <div className="max-container px-4 justify-center grid grid-cols-5 gap-2 max-lg:hidden ">
           <div className="flex flex-col"> 
             {" "}
             <span className="text-gray-500 font-semibold">More from TopAds</span>

@@ -6,14 +6,14 @@
   :root {
     --background: 210 40% 96.1%;
     --foreground: 222.2 84% 4.9%;
-
+    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: #10b981;
+    --primary: #f97316;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -44,8 +44,8 @@
 
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
-    --primary: #10b981;
+   
+    --primary: #FF6452;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -75,17 +75,22 @@
   }
 }
 
-@layer components {
+@layer utilities {
   .max-container {
     max-width: 1440px;
     margin: 0 auto;
   }
 
-  .input {
-    @apply sm:flex-1 max-sm:w-full text-base leading-normal text-slate-gray pl-5 max-sm:p-5 outline-none sm:border-none border max-sm:border-slate-gray max-sm:rounded-full;
-  }
-
   .link{
     @apply text-blue-500 p-4 font-semibold
   }
+
+  .input-field {
+    @apply bg-gray-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-gray-500 rounded-md text-[16px] font-normal leading-[24px] px-4 py-3 border-none focus-visible:ring-transparent !important;
+  }
+
+  .btn{
+    @apply bg-primary px-2 py-2 rounded-md text-white hover:bg-orange-400 text-center
+  }
+
 }

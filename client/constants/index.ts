@@ -1,7 +1,7 @@
 export const navlinks = [
-    {href:'/' ,label:'Home'},
-    {href:'/about-us' ,label:'About Us'},
-    {href:'/contact-us' ,label:'Contact Us'},
+    {id:1,href:'/' ,label:'Home'},
+    {id:2,href:'/about-us' ,label:'About Us'},
+    {id:3,href:'/contact-us' ,label:'Contact Us'},
    
 ]
 
