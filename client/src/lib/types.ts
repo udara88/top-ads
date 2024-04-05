@@ -6,3 +6,10 @@ export type User = {
     imageUrl:string;
     username:string;
 }
+
+export type  signUpFormProps = {
+    email:string;
+    username:string;
+    password:string;
+    
+   }

@@ -16,23 +16,25 @@ import { signupFormSchema } from "../../lib/validator";
 import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { google } from "../../../public/assets/icons";
-import { createUser } from "../../lib/api/userApi";
 import { useRouter } from "next/navigation";
-import AlertMessage from "../shared/AlertMessage";
 import { User } from "@/lib/types";
+import {signupAsync} from "@/redux/features/user/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
 
 type SignupFormProp = {
   setopen: Dispatch<SetStateAction<boolean>>;
   setShowMessage:Dispatch<SetStateAction<boolean>>;
   setShowErrorMessage: Dispatch<SetStateAction<boolean>>
   setMessage:Dispatch<SetStateAction<string>>
-  setUser:Dispatch<SetStateAction<User | null>>
+  
 };
 
-const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage,setUser }: SignupFormProp) => {
+const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: SignupFormProp) => {
   const router = useRouter();
   const [signIn, setsignIn] = useState(true);
-
+  const dispatch = useDispatch<AppDispatch>()
+ 
   
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
@@ -44,21 +46,10 @@ const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage,setUser 
     },
   });
   async function onSubmit(values: z.infer<typeof signupFormSchema>) {
-  
-    const { error, data } = await createUser(values);
-    if (data) {
-      setUser(data.user)
-      setopen(false);
-      setShowMessage(true);
-      setMessage("Created user successfully");
-      router.push("/");
-    }
-
-    if (error) {
-      setopen(false);
-      setShowErrorMessage(true);
-      setMessage("Failed to create user");
-    }
+     
+     dispatch(signupAsync(values))
+     setopen(false)
+    
   }
 
   return (

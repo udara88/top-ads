@@ -19,6 +19,8 @@ import AlertMessage from "./AlertMessage";
 import DialogBox from "./DialogBox";
 import { User } from "@/lib/types";
 import ToogleMenu from "./ToogleMenu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 const NavBar = () => {
@@ -26,8 +28,9 @@ const NavBar = () => {
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [user,setUser] = useState<User | null>(null);
   const [toogleMenu, setToogleMenu] = useState(false)
+  const {user,isAuthenticated,loading,error} = useSelector((state:RootState)=> state.user)
+
   return (
     <header className="w-full px-4 py-4 bg-primary relative">
        
@@ -43,7 +46,7 @@ const NavBar = () => {
           ))}
         </ul>
         <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-           {!user ?  <Link key={5} href="#signin" onClick={()=>setopen(true)}>Sign In</Link>: <ToogleMenu  toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} /> }
+           {!isAuthenticated ?  <Link key={5} href="#signin" onClick={()=>setopen(true)}>Sign In</Link>: <ToogleMenu  toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} /> }
          </ul>
        
         <div className="hidden max-lg:block">
@@ -82,7 +85,7 @@ const NavBar = () => {
       </nav>
      
       <DialogBox  open={open} setopen={setopen} >
-          <SignUp setopen={setopen} setShowMessage={setShowMessage} setShowErrorMessage={setShowErrorMessage} setMessage={setMessage} setUser={setUser} />
+          <SignUp setopen={setopen} setShowMessage={setShowMessage} setShowErrorMessage={setShowErrorMessage} setMessage={setMessage}  />
       </DialogBox>
       {showMessage && (
         <AlertMessage type="success" title="Success" description={message} />
