@@ -1,4 +1,4 @@
-import {customFetch, handleApiError} from '../api'
+import {customFetch, handleApiError} from '.'
 
  type  signUpFormProps = {
   email:string;

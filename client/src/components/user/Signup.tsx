@@ -12,11 +12,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signupFormSchema } from "../../../lib/validator";
+import { signupFormSchema } from "../../lib/validator";
 import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { google } from "../../../public/assets/icons";
-import { createUser } from "../../../lib/api/userApi";
+import { createUser } from "../../lib/api/userApi";
 import { useRouter } from "next/navigation";
 import AlertMessage from "../shared/AlertMessage";
 import { User } from "@/lib/types";
