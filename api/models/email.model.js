@@ -26,4 +26,7 @@ const emailSchema = new mongoose.Schema({
       },
 })
 
-module.exports = mongoose.model("Email",emailSchema)
+
+
+const EmailVerification =  mongoose.model("Email",emailSchema)
+export default EmailVerification;

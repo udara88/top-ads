@@ -32,9 +32,12 @@ const userSchema = new mongoose.Schema(
     imageUrl:{
       type:String
     },
-     accessToken:{
+
+    isAuthenticated:{
       type:String
-     }
+    }
+     
+
   },
   { timestamps: true }
 );

@@ -12,14 +12,13 @@ export const addUser = async(req,res,next) =>{
         username,
         email,
         password,
-        imageUrl:defaultAvatar
+        imageUrl:defaultAvatar,
+        isAuthenticated:false
     })
    
     try {
         await newUser.save();
-        res.status(201).json({
-            message: "User added successfully",
-          });
+        next();
         
     } catch (error) {
         res.status(400).json(errorHandler(400,'Failed to add user'))
