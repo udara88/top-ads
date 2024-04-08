@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { navlinks } from "../../../constants";
 import { hamburger } from "../../../public/assets/icons";
@@ -21,42 +21,51 @@ import { User } from "@/lib/types";
 import ToogleMenu from "./ToogleMenu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-
+import Logo from "../../../public/assets/images/logo.png";
 
 const NavBar = () => {
-  const [open, setopen] = useState(false)
+  const [open, setopen] = useState(false);
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [toogleMenu, setToogleMenu] = useState(false)
-  const {user,isAuthenticated} = useSelector((state:RootState)=> state.user)
-
-  useEffect(()=>{
-    if(!user){
-
-      
-
-    }
-  })
+  const [toogleMenu, setToogleMenu] = useState(false);
+  const { user, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
 
   return (
-    <header className="w-full px-4 py-4 bg-primary relative">
-       
-      <nav className="max-container  flex justify-between items-center gap-4  text-white " >
-        <h1 className="text-xl text-white font-semibold">TopAds.lk</h1>
+    <header className="w-full px-4 py-1  relative">
+      <nav className="max-container  flex justify-between items-center gap-4   ">
+        <div>
+          <Image
+            src={Logo}
+            alt="topads-logo"
+            className="object-contain object-center"
+            width={130}
+            height={29}
+          />
+        </div>
         <ul className="max-lg:hidden">
           {navlinks.map((link) => (
-          
-              <Link key={link.id} href={link.href} className="p-4 font-semibold  ">
-                {link.label}
-              </Link>
-            
+            <Link
+              key={link.id}
+              href={link.href}
+              className="px-4 py-2 font-semibold  "
+            >
+              {link.label}
+            </Link>
           ))}
         </ul>
         <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-           {!isAuthenticated ?  <Link key={5} href="#signin" onClick={()=>setopen(true)}>Sign In</Link>: <ToogleMenu  toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} /> }
-         </ul>
-       
+          {!isAuthenticated ? (
+            <Link key={5} href="#signin" onClick={() => setopen(true)}>
+              Sign In
+            </Link>
+          ) : (
+            <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} />
+          )}
+        </ul>
+
         <div className="hidden max-lg:block">
           <Sheet key="left">
             <SheetTrigger>
@@ -71,19 +80,36 @@ const NavBar = () => {
             <SheetContent side="left" className="">
               <SheetHeader>
                 <SheetTitle className="sm:text-2xl text-xl text-primary ">
-                  TopAds.lk
+                  <div className="w-full flex justify-center items-center">
+                  <Image
+                    src={Logo}
+                    alt="topads-logo"
+                    className="object-contain object-center"
+                    width={90}
+                    height={29}
+                  />
+                  </div>
                 </SheetTitle>
                 <SheetDescription>
                   <ul className="flex flex-col justify-start">
-                    {navlinks.map((link,index) => (
-                     
-                        <Link   key={index} href={link.href} className="p-4 font-semibold  ">
-                          {link.label}
-                        </Link>
-                      
+                    {navlinks.map((link, index) => (
+                      <Link
+                        key={index}
+                        href={link.href}
+                        className="p-4 font-semibold  "
+                      >
+                        {link.label}
+                      </Link>
                     ))}
-                    
-                     <Link key={10} href="#signin" className="btn mt-6" onClick={()=>setopen(true)}>Sign In</Link>
+
+                    <Link
+                      key={10}
+                      href="#signin"
+                      className="btn mt-6"
+                      onClick={() => setopen(true)}
+                    >
+                      Sign In
+                    </Link>
                   </ul>
                 </SheetDescription>
               </SheetHeader>
@@ -91,9 +117,14 @@ const NavBar = () => {
           </Sheet>
         </div>
       </nav>
-     
-      <DialogBox  open={open} setopen={setopen} >
-          <SignUp setopen={setopen} setShowMessage={setShowMessage} setShowErrorMessage={setShowErrorMessage} setMessage={setMessage}  />
+
+      <DialogBox open={open} setopen={setopen}>
+        <SignUp
+          setopen={setopen}
+          setShowMessage={setShowMessage}
+          setShowErrorMessage={setShowErrorMessage}
+          setMessage={setMessage}
+        />
       </DialogBox>
       {showMessage && (
         <AlertMessage type="success" title="Success" description={message} />

@@ -3,14 +3,10 @@ import EmailVerification from '../../models/email.model.js'
 import {query,validationResult} from  'express-validator'
 import {verifyEmailHTML} from '../../utils/emailTemplates.js'
 import { errorHandler } from '../../utils/error.js';
-import path from 'path'
-
-
-
-const CLIENT_URL = process.env.CLIENT_URL;
+import path from 'path';
 
 export const sendVerficationEmail = async(req,res) =>{
-  
+    const CLIENT_URL = process.env.CLIENT_URL;
     const __dirname = path.resolve();
     const imagePath = path.join(__dirname, '/api//assets/Images/logo.png'); 
     const USER = process.env.EMAIL;

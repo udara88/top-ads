@@ -1,4 +1,5 @@
 export const verifyEmailHTML = (name, verificationLink, verificationCode) =>
+
   `
 <div style="max-width: 600px; margin: auto; background-color: #f4f4f4; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgb(104, 182, 255);">
   <div style="background-color: #ffffff; padding: 20px; border-radius: 10px;">

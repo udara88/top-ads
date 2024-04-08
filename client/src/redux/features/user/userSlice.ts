@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { signUpFormProps, User } from "@/lib/types";
 import { createUser } from "@/lib/api/userApi";
 import { string } from "zod";
+import { isNullOrUndefined } from "util";
 
 
 type InitialState = {
@@ -30,14 +31,13 @@ const auth = createSlice({
         state.loading = true;
 
     })
-    .addCase(signupAsync.fulfilled,(state,action:PayloadAction<InitialState>)=>{
+    .addCase(signupAsync.fulfilled,(state,action:PayloadAction<string>)=>{
       console.log(action.payload)
-        state.user = action.payload.user
+        state.user = null;
         state.loading = false;
-        state.isAuthenticated = true;
+        state.isAuthenticated = false;
         state.error = "";
       
-        localStorage.setItem("user",JSON.stringify({user:action.payload,isAuthenticated:true}))
 
     })
 

@@ -6,7 +6,7 @@ import { signUpFormProps } from '../types';
 
 export const createUser = async (formData:signUpFormProps) => {
     try {
-      const { data } = await customFetch.post("/auth/signup", formData, {
+      const { data } = await customFetch.post("/users/signup", formData, {
         headers: {
           "Content-Type": "application/json",
         },

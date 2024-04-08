@@ -18,9 +18,10 @@ import Image from "next/image";
 import { google } from "../../../public/assets/icons";
 import { useRouter } from "next/navigation";
 import { User } from "@/lib/types";
-import {signupAsync} from "@/redux/features/user/authSlice";
+import {signupAsync} from "@/redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
+import Logo from '../../../public/assets/images/logo.png'
 
 type SignupFormProp = {
   setopen: Dispatch<SetStateAction<boolean>>;
@@ -46,22 +47,37 @@ const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: Signu
     },
   });
   async function onSubmit(values: z.infer<typeof signupFormSchema>) {
-     
-     dispatch(signupAsync(values))
-     setopen(false)
-    
+      await dispatch(signupAsync(values))
+      if(error){
+        setShowErrorMessage(true)
+        setMessage(error)
+      }else{
+        setShowMessage(true)
+        setMessage(`Verification email was successfully sent to ${values.email}`)
+
+      }
+
+      setopen(false)
   }
 
   return (
     <>
       <div className="flex flex-col">
         <h1 className="sm:text-xl text-lg text-primary">
-          Welcome to TopAds.lk{" "}
+         <div className="w-full flex justify-center items-center">
+         <Image
+                    src={Logo}
+                    alt="topads-logo"
+                    className="object-contain object-center"
+                    width={110}
+                    height={29}
+                  />
+         </div>
         </h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-5 mt-8 overflow-auto min-h-7"
+            className="flex flex-col gap-5 mt-4 overflow-auto min-h-7"
           >
             {!signIn && (
               <FormField

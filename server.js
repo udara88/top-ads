@@ -22,4 +22,4 @@ app.listen(3001,()=>{
     console.log('Server is runing on port 3001');
 })
 app.use(cors());
-app.use('/users',userRoutes);
+app.use('/api/users',userRoutes);
