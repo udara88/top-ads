@@ -1,3 +1,4 @@
+import { error } from 'console';
 import {customFetch, handleApiError} from '.'
 import { signUpFormProps } from '../types';
 
@@ -10,7 +11,9 @@ export const createUser = async (formData:signUpFormProps) => {
           "Content-Type": "application/json",
         },
       });
-      return data
+      
+
+      return {data,error:""}
     } catch (error) {
       return handleApiError(error);
     }

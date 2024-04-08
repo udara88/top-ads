@@ -29,7 +29,15 @@ const NavBar = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [toogleMenu, setToogleMenu] = useState(false)
-  const {user,isAuthenticated,loading,error} = useSelector((state:RootState)=> state.user)
+  const {user,isAuthenticated} = useSelector((state:RootState)=> state.user)
+
+  useEffect(()=>{
+    if(!user){
+
+      
+
+    }
+  })
 
   return (
     <header className="w-full px-4 py-4 bg-primary relative">

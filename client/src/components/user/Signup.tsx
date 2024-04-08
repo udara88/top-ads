@@ -34,7 +34,7 @@ const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: Signu
   const router = useRouter();
   const [signIn, setsignIn] = useState(true);
   const dispatch = useDispatch<AppDispatch>()
- 
+  const {loading,error} = useSelector((state:RootState)=> state.user)
   
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
@@ -126,7 +126,7 @@ const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: Signu
                   : "bg-primary "
               } text-white`}
             >
-              {form.formState.isSubmitting
+              {loading
                 ? "Submitting..."
                 : `${!signIn ? "Sign Up" : "Sign In"}`}
             </Button>

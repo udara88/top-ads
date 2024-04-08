@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema(
 
     imageUrl:{
       type:String
-    }
+    },
+     accessToken:{
+      type:String
+     }
   },
   { timestamps: true }
 );
