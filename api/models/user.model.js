@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
     },
 
     isAuthenticated:{
-      type:String
+      type:Boolean
     }
      
 

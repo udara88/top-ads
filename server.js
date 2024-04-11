@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv' 
 import userRoutes from './api/routes/user.route.js'
+import contextAuthRoutes from './api/routes/context-auth.route.js'
 import cors from 'cors'
 
 dotenv.config();
@@ -22,4 +23,5 @@ app.listen(3001,()=>{
     console.log('Server is runing on port 3001');
 })
 app.use(cors());
-app.use('/api/users',userRoutes);
+app.use('/users',userRoutes);
+app.use('/auth',contextAuthRoutes);

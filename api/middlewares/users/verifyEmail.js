@@ -5,8 +5,9 @@ import {verifyEmailHTML} from '../../utils/emailTemplates.js'
 import { errorHandler } from '../../utils/error.js';
 import path from 'path';
 
+
 export const sendVerficationEmail = async(req,res) =>{
-    const CLIENT_URL = process.env.CLIENT_URL;
+    const SEVER_URL = process.env.SEVER_URL;
     const __dirname = path.resolve();
     const imagePath = path.join(__dirname, '/api//assets/Images/logo.png'); 
     const USER = process.env.EMAIL;
@@ -14,7 +15,7 @@ export const sendVerficationEmail = async(req,res) =>{
     const HOST = process.env.HOST;
     const {email,username} = req.body;
     const verificationCode = Math.floor(10000 + Math.random() * 90000);
-    const verficatonLink = `${CLIENT_URL}/auth/verify?code=${verificationCode}&email=${email}`;
+    const verficatonLink = `${SEVER_URL}/auth/verify?code=${verificationCode}&email=${email}`;
     const attachments = [
         {
           filename: 'logo.png',
@@ -58,5 +59,25 @@ export const sendVerficationEmail = async(req,res) =>{
         res.status(500).json(errorHandler(500, error))
     }
 }
+
+export const verifyEmailValidation = [
+    query("email").isEmail().normalizeEmail(),
+    query("code").isLength({min:5,max:5}),
+    (req,res,next)=>{
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(422).json(errorHandler(422,errors.array()))
+        }
+
+        next();
+    }
+];
+
+
+
+
+
+
+
 
 

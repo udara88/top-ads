@@ -1,11 +1,28 @@
 import express from 'express'
 import {addUserValidator,addUserValidatorHandler} from '../middlewares/users/userValidator.js'
 import {sendVerficationEmail} from '../middlewares/users/verifyEmail.js'
-import  {addUser} from '../controllers/user.controller.js'
+import  {addUser, signin} from '../controllers/user.controller.js'
+import  useragent  from 'express-useragent'
+import  requestIp  from 'request-ip'
+
+
 
 const router = express.Router();
 
-router.post("/signup",addUserValidator,addUserValidatorHandler,addUser,sendVerficationEmail);
+router.post("/signup",
+             addUserValidator,
+             addUserValidatorHandler,
+             addUser,
+             sendVerficationEmail
+             );
+router.post(
+    "/signin",
+    requestIp.mw(),
+    useragent.express(),
+    signin
+    );
+
+
 
 
 export default router;

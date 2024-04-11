@@ -1,7 +1,7 @@
 import axios from 'axios';
-const BASE_URL = process.env.API_URI_LOCALHOST;
+
 export const customFetch = axios.create({
-    baseURL:'http://127.0.0.1:3001/api/',
+    baseURL:'http://localhost:3001',
     
 })
 

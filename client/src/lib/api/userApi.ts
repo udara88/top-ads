@@ -18,3 +18,12 @@ export const createUser = async (formData:signUpFormProps) => {
       return handleApiError(error);
     }
   };
+
+  export const verifyUser = async (email:string,code:string)=>{
+    try {
+      const {data} = await customFetch.get(`/auth/verify?code=${code}&email=${email}`)
+      return {data,error:""}
+    } catch (error) {
+      return handleApiError(error);
+    }
+  }
