@@ -7,7 +7,7 @@ import path from 'path';
 
 
 export const sendVerficationEmail = async(req,res) =>{
-    const SEVER_URL = process.env.SEVER_URL;
+    const CLIENT_URL = process.env.CLIENT_URL;
     const __dirname = path.resolve();
     const imagePath = path.join(__dirname, '/api//assets/Images/logo.png'); 
     const USER = process.env.EMAIL;
@@ -15,7 +15,7 @@ export const sendVerficationEmail = async(req,res) =>{
     const HOST = process.env.HOST;
     const {email,username} = req.body;
     const verificationCode = Math.floor(10000 + Math.random() * 90000);
-    const verficatonLink = `${SEVER_URL}/auth/verify?code=${verificationCode}&email=${email}`;
+    const verficatonLink = `${CLIENT_URL}/auth/verify?code=${verificationCode}&email=${email}`;
     const attachments = [
         {
           filename: 'logo.png',

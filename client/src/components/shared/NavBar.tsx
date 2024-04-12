@@ -29,9 +29,7 @@ const NavBar = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [toogleMenu, setToogleMenu] = useState(false);
-  const { user, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
+ 
 
   return (
     <header className="w-full px-4 py-1  relative">
@@ -57,13 +55,9 @@ const NavBar = () => {
           ))}
         </ul>
         <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-          {!isAuthenticated ? (
             <Link key={5} href="#signin" onClick={() => setopen(true)}>
               Sign In
             </Link>
-          ) : (
-            <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} />
-          )}
         </ul>
 
         <div className="hidden max-lg:block">

@@ -4,12 +4,14 @@ export type User = {
     lastname:string;
     mobile:string;
     imageUrl:string;
+    isAuthenticated:boolean;
     username:string;
 }
 
 export type  signUpFormProps = {
     email:string;
-    username:string;
+    firstname:string;
+    lastname:string;
+    mobilenumber:string;
     password:string;
-    
    }

@@ -17,11 +17,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { google } from "../../../public/assets/icons";
 import { useRouter } from "next/navigation";
-import { User } from "@/lib/types";
-import {signupAsync} from "@/redux/features/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
 import Logo from '../../../public/assets/images/logo.png'
+import { createUser } from "@/lib/api/userApi";
 
 type SignupFormProp = {
   setopen: Dispatch<SetStateAction<boolean>>;
@@ -32,29 +29,34 @@ type SignupFormProp = {
 };
 
 const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: SignupFormProp) => {
-  const router = useRouter();
   const [signIn, setsignIn] = useState(true);
-  const dispatch = useDispatch<AppDispatch>()
-  const {loading,error} = useSelector((state:RootState)=> state.user)
-  
+  const [loading,setLoading] = useState(false)
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
-      username: "",
+      firstname :"",
+      lastname :"",
+      mobilenumber :"",
       email: "",
       password: "",
+     
      
     },
   });
   async function onSubmit(values: z.infer<typeof signupFormSchema>) {
-      await dispatch(signupAsync(values))
-      if(error){
-        setShowErrorMessage(true)
-        setMessage(error)
-      }else{
+      setLoading(true)
+      const {data,error} = await createUser(values)
+
+       if(data){
+        setLoading(false)
         setShowMessage(true)
         setMessage(`Verification email was successfully sent to ${values.email}`)
+       }
 
+      if(error){
+        setLoading(false)
+        setShowErrorMessage(true)
+        setMessage(error)
       }
 
       setopen(false)
@@ -100,13 +102,49 @@ const SignUp = ({ setopen,setShowMessage,setShowErrorMessage,setMessage }: Signu
             )}
             <FormField
               control={form.control}
-              name="username"
+              name="firstname"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter firstname"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastname"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter username"
+                      placeholder="Enter lastname"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="mobilenumber"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Mobile number</FormLabel>
+                  <FormControl>
+                    <Input
+                     
+                      placeholder="Enter lastname"
                       {...field}
                       className="input-field"
                     />
