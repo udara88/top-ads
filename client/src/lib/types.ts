@@ -2,10 +2,10 @@ export type User = {
     email:string;
     firstname:string;
     lastname:string;
-    mobile:string;
+    mobilenumber:string;
     imageUrl:string;
     isAuthenticated:boolean;
-    username:string;
+    
 }
 
 export type  signUpFormProps = {
@@ -15,3 +15,10 @@ export type  signUpFormProps = {
     mobilenumber:string;
     password:string;
    }
+
+   export type signInProps = {
+    user:User;
+    accessToken:string;
+    refreshToken:string;
+   }
+

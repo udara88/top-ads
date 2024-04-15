@@ -6,6 +6,7 @@ type AvatarProp = {
   setToogleMenu:Dispatch<SetStateAction<boolean>>;
     imageUrl?:string;
     toogleMenu:boolean;
+    
 }
 
 const Avatar = ({imageUrl,setToogleMenu,toogleMenu}:AvatarProp) => {

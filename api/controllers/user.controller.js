@@ -98,6 +98,7 @@ export const signin = async (req, res, next) => {
         lastname: existingUser.lastname || "",
         mobile: existingUser.mobile || "",
         isAuthenticated: existingUser.isAuthenticated || false,
+        imageUrl:existingUser.imageUrl || ""
       },
     });
   } catch (error) {

@@ -12,16 +12,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { Button } from "@/components/ui/button";
 import SignUp from "../user/Signup";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AlertMessage from "./AlertMessage";
 import DialogBox from "./DialogBox";
-import { User } from "@/lib/types";
 import ToogleMenu from "./ToogleMenu";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import Logo from "../../../public/assets/images/logo.png";
+import { useAppSelector } from "@/hooks/useTypedSelector";
 
 const NavBar = () => {
   const [open, setopen] = useState(false);
@@ -29,7 +26,9 @@ const NavBar = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [toogleMenu, setToogleMenu] = useState(false);
- 
+  const {user} = useAppSelector((state)=> state.user)
+
+
 
   return (
     <header className="w-full px-4 py-1  relative">
@@ -55,9 +54,10 @@ const NavBar = () => {
           ))}
         </ul>
         <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-            <Link key={5} href="#signin" onClick={() => setopen(true)}>
+          {!user?.isAuthenticated ? <Link key={5} href="#signin" onClick={() => setopen(true)}>
               Sign In
-            </Link>
+            </Link>: <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} imageUrl={user?.imageUrl}/> }
+            
         </ul>
 
         <div className="hidden max-lg:block">

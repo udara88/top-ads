@@ -1,71 +1,77 @@
-// import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { signUpFormProps, User } from "@/lib/types";
-// import { createUser } from "@/lib/api/userApi";
-// import { string } from "zod";
-// import { isNullOrUndefined } from "util";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { signInProps, signUpFormProps, User } from "@/lib/types";
+import { signIn } from "@/lib/api/userApi";
+import { useAppSelector } from "@/hooks/useTypedSelector";
 
 
-// type InitialState = {
-//   user: User | null;
-//   isAuthenticated: boolean;
-//   loading: boolean;
-//   error:string;
-//   token:string;
-// };
 
-// const initialState: InitialState = {
-//   user: null,
-//   isAuthenticated: false,
-//   loading: false,
-//   error:"",
-//   token:""
-// };
+type UserState = {
+  user: User | null ;
+  accessToken:string;
+  refreshToken:string;
+  loading:boolean;
+  error:null | string
+};
 
-// const auth = createSlice({
-//   name: "auth",
-//   initialState,
-//   reducers: {},
-//   extraReducers:(builder) =>{
-//     builder
-//     .addCase(signupAsync.pending,(state)=>{
-//         state.loading = true;
+const initialState: UserState = {
+  user: null,
+  accessToken:"",
+  refreshToken:"",
+  loading:false,
+  error:null
 
-//     })
-//     .addCase(signupAsync.fulfilled,(state,action:PayloadAction<string>)=>{
-//       console.log(action.payload)
-//         state.user = null;
-//         state.loading = false;
-//         state.isAuthenticated = false;
-//         state.error = "";
-      
+};
 
-//     })
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers:(builder) =>{
+    builder
+    .addCase(signInAsync.pending,(state)=>{
+        state.loading = true;
 
-//     .addCase(signupAsync.rejected,(state,action)=>{
-//         console.log(action)
-//          state.error = action.payload as string
-//          state.loading = false
+    })
+    .addCase(signInAsync.fulfilled,(state,action:PayloadAction<signInProps|null>)=>{ 
+      const user   = {
+        user: action.payload?.user || null,
+        accessToken:action.payload?.accessToken || "",
+        refreshToken:action.payload?.refreshToken || ""
+      }
+        state.user = user.user ;
+        state.accessToken = user.accessToken ;
+        state.refreshToken = user.refreshToken;
+        state.loading = false;
+        state.error = null;
+
+        localStorage.setItem("user",JSON.stringify(user))
+    })
+
+    .addCase(signInAsync.rejected,(state,action:PayloadAction<any>)=>{
+         state.loading = false; 
+         state.error = action.payload
          
-//     })
-//   }
-// });
+    })
+  }
+});
 
-// // export const signupAsync = createAsyncThunk(
-// //   "signupAsync",
-// //   async (user: signUpFormProps,thunkAPI) => {
-// //    try {
-// //     const {data,error} = await createUser(user);
+//action
+export const signInAsync = createAsyncThunk(
+  "signInAsync",
+  async ({email,password}:{email:string,password:string},thunkAPI) => {
+   try {
+    const {data,error} = await signIn(email,password);
+    if(error){
+      return thunkAPI.rejectWithValue(error)
+      
+    }
    
-// //     if(error){
-// //       return thunkAPI.rejectWithValue(error)
-// //     }
-// //     return data;
-   
-// //    } catch (error:any) {
-// //     return thunkAPI.rejectWithValue(error)
-// //    }
-// //   }
-// // );
+    return data;
+   } catch (error:any) {
+    return thunkAPI.rejectWithValue(error)
+   }
+  }
+);
 
 
-// export default auth.reducer;
+ export default userSlice.reducer;

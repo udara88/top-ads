@@ -22,7 +22,7 @@ const ToogleMenu = ({
 }: toogleMenuProps) => {
   return (
     <>
-      <Avatar setToogleMenu={setToogleMenu} toogleMenu={toogleMenu} />
+      <Avatar imageUrl={imageUrl} setToogleMenu={setToogleMenu} toogleMenu={toogleMenu}  />
       <DropdownMenu open={toogleMenu} onOpenChange={setToogleMenu}>
         <DropdownMenuTrigger></DropdownMenuTrigger>
         <DropdownMenuContent>
