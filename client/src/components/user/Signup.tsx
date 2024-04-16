@@ -183,7 +183,7 @@ const SignUp = ({
               type="submit"
               disabled={form.formState.isSubmitting}
               className={`${
-                form.formState.isSubmitting ? "bg-primary-500/80" : "bg-primary"
+                form.formState.isSubmitting ? "bg-primary/15" : "bg-primary"
               } text-white col-span-2 mt-4`}
             >
               {loading ? "Submitting..." : `${!signIn ? "Sign Up" : "Sign In"}`}

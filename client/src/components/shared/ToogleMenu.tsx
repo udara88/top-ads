@@ -8,6 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Dispatch, SetStateAction } from "react";
 import Avatar from "./Avatar";
+import { useAppDispatch } from "@/hooks/useTypedSelector";
+import {logout } from "@/redux/features/user/userSlice";
+import { useRouter } from "next/navigation";
 
 type toogleMenuProps = {
   toogleMenu: boolean;
@@ -20,14 +23,30 @@ const ToogleMenu = ({
   setToogleMenu,
   imageUrl,
 }: toogleMenuProps) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handlelogout =  ()=>{
+    
+    dispatch(logout())
+    router.push('/')
+
+
+  }
+
+
+
+
+
+
   return (
     <>
       <Avatar imageUrl={imageUrl} setToogleMenu={setToogleMenu} toogleMenu={toogleMenu}  />
       <DropdownMenu open={toogleMenu} onOpenChange={setToogleMenu}>
         <DropdownMenuTrigger></DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>My Account</DropdownMenuItem>
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuContent >
+          <DropdownMenuItem className="cursor-pointer">My Account</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onClick={()=>dispatch(logout())}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

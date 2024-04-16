@@ -36,8 +36,8 @@ const NavBar = () => {
     toast({
       variant: "default",
       title: "Success",
-      description:success,
-      className:"text-green-600"
+      description:"Signed in successfully",
+      className:"text-primary font-bold"
       
     })
     dispatch(clearAllMessage())
@@ -86,7 +86,7 @@ const NavBar = () => {
           ))}
         </ul>
         <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-          {!user?.isAuthenticated ? <Link key={5} href="#signin" onClick={() => setopen(true)}>
+          {!user?.isAuthenticated ? <Link key={5} href="" onClick={() => setopen(true)}>
               Sign In
             </Link>: <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} imageUrl={user?.imageUrl}/> }
             

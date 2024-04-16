@@ -3,14 +3,17 @@ import { signInProps, signUpFormProps, User } from "@/lib/types";
 import { signIn, createUser } from "@/lib/api/userApi";
 import { stat } from "fs";
 
+
 const { user, accessToken, refreshToken } =
   localStorage.getItem("user") !== null &&
   JSON.parse(localStorage.getItem("user") || "");
 
+  
+
 type UserState = {
   user: User | null;
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | null;
+  refreshToken: string  | null;
   loading: boolean;
   error: null |  string;
   success:null | string;
@@ -33,7 +36,17 @@ const userSlice = createSlice({
       state.error = null;
       state.loading = false;
       state.success = null;
-  }
+  },
+
+      logout:(state)=>{
+         localStorage.clear()
+         state.user = null;
+         state.accessToken = null;
+         state.refreshToken = null;
+         state.loading = false;
+         state.success = null;
+         state.error = null;
+      }
   },
   extraReducers: (builder) => {
     builder
@@ -114,5 +127,5 @@ export const signUpAsync = createAsyncThunk(
     }
   }
 );
-export const {clearAllMessage} =  userSlice.actions;
+export const {clearAllMessage,logout} =  userSlice.actions;
 export default userSlice.reducer;
