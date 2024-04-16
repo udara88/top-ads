@@ -13,34 +13,29 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signupFormSchema,signinFormSchema } from "../../lib/validator";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { google } from "../../../public/assets/icons";
 import Logo from "../../../public/assets/images/logo.png";
-import { createUser } from "@/lib/api/userApi";
 import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
-import { signInAsync } from "@/redux/features/user/userSlice";
+import { signInAsync,signUpAsync } from "@/redux/features/user/userSlice";
+
 
 type SignupFormProp = {
   setopen: Dispatch<SetStateAction<boolean>>;
-  setShowMessage: Dispatch<SetStateAction<boolean>>;
-  setShowErrorMessage: Dispatch<SetStateAction<boolean>>;
-  setMessage: Dispatch<SetStateAction<string>>;
+
 };
 
 const SignUp = ({
   setopen,
-  setShowMessage,
-  setShowErrorMessage,
-  setMessage,
+  
 }: SignupFormProp) => {
   const [signIn, setsignIn] = useState(true);
-  const [loading, setLoading] = useState(false);
-  
   const dispatch =  useAppDispatch();
-
   const formParam :any = !signIn ? signupFormSchema : signinFormSchema
+  const {loading,error,success} = useAppSelector((state)=> state.user)
   
+
   const form = useForm<z.infer<typeof formParam>>({
     resolver: zodResolver(formParam),
     defaultValues: {
@@ -52,33 +47,25 @@ const SignUp = ({
     },
   });
 
+  
+  if(error || success){
+    setopen(false)
+  }
+  
 
   async function onSubmit(values: z.infer<typeof formParam>) {
-    setLoading(true);
+  
     if(!signIn){
-      const { data, error } = await createUser(values);
-      if (data) {
-        setLoading(false);
-        setShowMessage(true);
-        setMessage(`Verification email was successfully sent to ${values.email}`);
-  
-      }
-  
-      if (error) {
-        setLoading(false);
-        setShowErrorMessage(true);
-        setMessage(error);
-      }
-    }else{
-      const {email,password} = values
-       setLoading(true)
-      dispatch(signInAsync({email,password}))
-      setLoading(false);
-    }
-   
-    setopen(false);
-  }
+      dispatch(signUpAsync(values))
+    
 
+     
+  }else{
+    const {email,password} = values;
+     dispatch(signInAsync({email,password}))
+    
+  } 
+}
   return (
     <>
       <div className="flex flex-col">

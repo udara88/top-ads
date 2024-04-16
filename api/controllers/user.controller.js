@@ -94,7 +94,7 @@ export const signin = async (req, res, next) => {
       accessTokenUpdatedAt: new Date().toLocaleString(),
       user: {
         _id: existingUser._id,
-        firstName: existingUser.firstname || "",
+        firstname: existingUser.firstname || "",
         lastname: existingUser.lastname || "",
         mobile: existingUser.mobile || "",
         isAuthenticated: existingUser.isAuthenticated || false,

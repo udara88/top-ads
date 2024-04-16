@@ -13,25 +13,57 @@ import {
 } from "@/components/ui/sheet";
 
 import SignUp from "../user/Signup";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import AlertMessage from "./AlertMessage";
 import DialogBox from "./DialogBox";
 import ToogleMenu from "./ToogleMenu";
 import Logo from "../../../public/assets/images/logo.png";
-import { useAppSelector } from "@/hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
+import { useToast } from "@/components/ui/use-toast"
+import { clearAllMessage } from "@/redux/features/user/userSlice";
+
 
 const NavBar = () => {
   const [open, setopen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [toogleMenu, setToogleMenu] = useState(false);
-  const {user} = useAppSelector((state)=> state.user)
+  const {user,error,success} = useAppSelector((state)=> state.user)
+  const dispatch = useAppDispatch()
+  const { toast } = useToast()
+
+ 
+ useEffect(()=>{
+  if(success){
+    toast({
+      variant: "default",
+      title: "Success",
+      description:success,
+      className:"text-green-600"
+      
+    })
+    dispatch(clearAllMessage())
+   }
+
+  if(error){
+   
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description:error,
+      
+     
+    })
+    dispatch(clearAllMessage())
+   
+ }
+
+ 
 
 
+ },[error,success])
 
   return (
     <header className="w-full px-4 py-1  relative">
+     
       <nav className="max-container  flex justify-between items-center gap-4   ">
         <div>
           <Image
@@ -114,18 +146,9 @@ const NavBar = () => {
 
       <DialogBox open={open} setopen={setopen}>
         <SignUp
-          setopen={setopen}
-          setShowMessage={setShowMessage}
-          setShowErrorMessage={setShowErrorMessage}
-          setMessage={setMessage}
-        />
+          setopen={setopen} />
       </DialogBox>
-      {showMessage && (
-        <AlertMessage type="success" title="Success" description={message} />
-      )}
-      {showErrorMessage && (
-        <AlertMessage type="error" title="Error" description={message} />
-      )}
+     
     </header>
   );
 };
