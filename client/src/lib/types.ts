@@ -13,7 +13,8 @@ export type  signUpFormProps = {
     firstname:string;
     lastname:string;
     mobilenumber:string;
-    password:string;
+    password?:string;
+    image?:string;
    }
 
    export type signInProps = {

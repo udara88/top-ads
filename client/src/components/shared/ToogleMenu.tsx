@@ -1,9 +1,9 @@
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Dispatch, SetStateAction } from "react";
@@ -26,18 +26,7 @@ const ToogleMenu = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const handlelogout =  ()=>{
-    
-    dispatch(logout())
-    router.push('/')
-
-
-  }
-
-
-
-
-
+ 
 
   return (
     <>

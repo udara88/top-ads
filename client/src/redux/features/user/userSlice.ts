@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { signInProps, signUpFormProps, User } from "@/lib/types";
-import { signIn, createUser } from "@/lib/api/userApi";
+import { signIn, createUser,getUser } from "@/lib/api/userApi";
 import { stat } from "fs";
 
 
@@ -89,7 +89,8 @@ const userSlice = createSlice({
       .addCase(signUpAsync.rejected, (state,action:PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+     
   },
 });
 
@@ -127,5 +128,22 @@ export const signUpAsync = createAsyncThunk(
     }
   }
 );
+
+export const getCurrentUserAsync = createAsyncThunk(
+  "getUserAsync",
+  async(email:string,thunkAPI)=>{
+    try {
+      
+      const { data, error } = await getUser(email)
+      if (error) {
+        return thunkAPI.rejectWithValue(error);
+      }
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
+
 export const {clearAllMessage,logout} =  userSlice.actions;
 export default userSlice.reducer;

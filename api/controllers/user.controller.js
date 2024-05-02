@@ -137,3 +137,29 @@ export const addUser = async (req, res, next) => {
     res.status(400).json(errorHandler(400, "Failed to add user"));
   }
 };
+
+export const getUser = async (req,res,next)=>{
+  const {email} = req.query;
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    await saveLogInfo(
+      req,
+      MESSAGE.INCORRECT_EMAIL,
+      LOG_TYPE.SIGN_IN,
+      LEVEL.ERROR
+    );
+
+    return res.status(404).json(errorHandler(404, "No user exsist"));
+  }
+
+  res.status(200).json({
+    user: {
+      _id: user._id,
+      firstname: user.firstname || "",
+      lastname: user.lastname || "",
+      mobile: user.mobile || "",
+      isAuthenticated: user.isAuthenticated || false,
+      imageUrl:user.imageUrl || ""
+    },
+  });
+}

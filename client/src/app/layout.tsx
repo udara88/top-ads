@@ -1,7 +1,10 @@
+
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
+
+
 
 
 const popins = Poppins(
@@ -22,12 +25,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={popins.className}>
+     
         <ReduxProvider>
+       
         {children}
+
         </ReduxProvider>
+       
         </body>
     </html>
   );

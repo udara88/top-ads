@@ -21,7 +21,7 @@ import Logo from "../../../public/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
 import { useToast } from "@/components/ui/use-toast"
 import { clearAllMessage } from "@/redux/features/user/userSlice";
-
+import  {useSession} from 'next-auth/react'
 
 const NavBar = () => {
   const [open, setopen] = useState(false);
@@ -29,6 +29,7 @@ const NavBar = () => {
   const {user,error,success} = useAppSelector((state)=> state.user)
   const dispatch = useAppDispatch()
   const { toast } = useToast()
+
 
  
  useEffect(()=>{
@@ -85,12 +86,12 @@ const NavBar = () => {
             </Link>
           ))}
         </ul>
-        <ul className="flex flex-col justify-center max-lg:hidden font-semibold ">
-          {!user?.isAuthenticated ? <Link key={5} href="" onClick={() => setopen(true)}>
+        <div className="flex flex-col justify-center max-lg:hidden font-semibold ">
+          {!user?.isAuthenticated  ? <Link key={5} href="" onClick={() => setopen(true)}>
               Sign In
             </Link>: <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} imageUrl={user?.imageUrl}/> }
             
-        </ul>
+        </div>
 
         <div className="hidden max-lg:block">
           <Sheet key="left">

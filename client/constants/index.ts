@@ -2,7 +2,7 @@ export const navlinks = [
     {id:1,href:'/' ,label:'Home'},
     {id:2,href:'/about-us' ,label:'About Us'},
     {id:3,href:'/contact-us' ,label:'Contact Us'},
-   
+    {id:4,href:'/create-post' ,label:'Create Post'},
 ]
 
 export const footerLinks = [

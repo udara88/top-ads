@@ -1,7 +1,7 @@
 import express from 'express'
 import {addUserValidator,addUserValidatorHandler} from '../middlewares/users/userValidator.js'
 import {sendVerficationEmail} from '../middlewares/users/verifyEmail.js'
-import  {addUser, signin} from '../controllers/user.controller.js'
+import  {addUser, signin,getUser} from '../controllers/user.controller.js'
 import  useragent  from 'express-useragent'
 import  requestIp  from 'request-ip'
 
@@ -21,6 +21,8 @@ router.post(
     useragent.express(),
     signin
     );
+
+    router.get("/getuser",getUser)
 
 
 
