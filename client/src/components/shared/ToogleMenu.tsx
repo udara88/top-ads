@@ -26,6 +26,10 @@ const ToogleMenu = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const logOut = ()=>{
+    dispatch(logout())
+    router.push('/')
+  }
  
 
   return (
@@ -35,7 +39,7 @@ const ToogleMenu = ({
         <DropdownMenuTrigger></DropdownMenuTrigger>
         <DropdownMenuContent >
           <DropdownMenuItem className="cursor-pointer">My Account</DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onClick={()=>dispatch(logout())}>Log out</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onClick={logOut}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

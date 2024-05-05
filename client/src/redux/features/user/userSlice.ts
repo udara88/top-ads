@@ -46,6 +46,7 @@ const userSlice = createSlice({
          state.loading = false;
          state.success = null;
          state.error = null;
+         
       }
   },
   extraReducers: (builder) => {

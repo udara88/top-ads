@@ -1,8 +1,10 @@
+import Mobile from '../public/assets/icons/mobile-phone.svg'
+import Car from '../public/assets/icons/car-category.svg'
 export const navlinks = [
     {id:1,href:'/' ,label:'Home'},
     {id:2,href:'/about-us' ,label:'About Us'},
     {id:3,href:'/contact-us' ,label:'Contact Us'},
-    {id:4,href:'/create-post' ,label:'Create Post'},
+   
 ]
 
 export const footerLinks = [
@@ -91,5 +93,30 @@ export const footerLinks = [
             }
         ]
         
+    }
+]
+
+export const categoryList = [
+    {
+        id:1,
+        name:'Electronics',
+        imageUrl:Mobile
+    },
+    {
+        id:2,
+        name:'Vehicles',
+        imageUrl:Car
+    }
+
+]
+
+export const subCategoryList = [
+    {
+        id:1,
+        items:['Mobile Phones','Mobile Phone Accessories','Computer & Tablets']
+    },
+    {
+        id:2,
+        items:['Car','MotorBikes','Vans','Busses']
     }
 ]

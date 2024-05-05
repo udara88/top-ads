@@ -14,14 +14,14 @@ import {
 
 import SignUp from "../user/Signup";
 import {  useEffect, useState } from "react";
-import AlertMessage from "./AlertMessage";
+
 import DialogBox from "./DialogBox";
 import ToogleMenu from "./ToogleMenu";
 import Logo from "../../../public/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
 import { useToast } from "@/components/ui/use-toast"
 import { clearAllMessage } from "@/redux/features/user/userSlice";
-import  {useSession} from 'next-auth/react'
+
 
 const NavBar = () => {
   const [open, setopen] = useState(false);
@@ -84,13 +84,14 @@ const NavBar = () => {
             >
               {link.label}
             </Link>
+            
           ))}
         </ul>
-        <div className="flex flex-col justify-center max-lg:hidden font-semibold ">
+        <div className="flex items-center  gap-4 max-lg:hidden font-semibold ">
           {!user?.isAuthenticated  ? <Link key={5} href="" onClick={() => setopen(true)}>
               Sign In
             </Link>: <ToogleMenu toogleMenu={toogleMenu} setToogleMenu={setToogleMenu} imageUrl={user?.imageUrl}/> }
-            
+           {user?.isAuthenticated &&  <Link href='/post-ad' className="btn">Create post </Link>}
         </div>
 
         <div className="hidden max-lg:block">
