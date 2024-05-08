@@ -101,6 +101,7 @@ export const categoryList = [
         id:1,
         name:'Electronics',
         imageUrl:Mobile
+
     },
     {
         id:2,
@@ -113,10 +114,132 @@ export const categoryList = [
 export const subCategoryList = [
     {
         id:1,
-        items:['Mobile Phones','Mobile Phone Accessories','Computer & Tablets']
+        items:[
+            {   id:1,
+                name:'Mobile'
+               
+            },
+            {   id:2,
+                name:'Mobile Phone Accessories'
+               
+            },
+            {   id:3,
+                name:'Computer and Tablets'
+               
+            },
+        ]
     },
     {
         id:2,
-        items:['Car','MotorBikes','Vans','Busses']
+        items:[
+            {
+                id:1,
+                name:'Car'
+            },
+            {
+                id:2,
+                name:'MotorBikes'
+            },
+            {
+                id:3,
+                name:'Vans'
+            },
+            {
+                id:4,
+                name:'Busses'
+            },
+        ]
+       
     }
 ]
+
+export const formFields = [
+
+    {
+        subCategoryId:1,
+        fields:[
+            {
+                fieldid:'condition',
+                fieldtype:'radio',
+                fieldlabel:'Condition',
+                fieldplaceholder:"",
+                fieldvalue:'used',
+                fielddata:[
+                    {
+                        key:'used',
+                        value:'Used'
+                    },
+
+                    {
+                        key:'new',
+                        value:'New'
+                    },
+
+                ],
+                required:false,
+               
+            },
+           
+
+            {
+                fieldid:'brand',
+                fieldtype:'select',
+                fieldlabel:'Brand',
+                fieldplaceholder:"select brand",
+                fieldvalue:"",
+                fielddata:[
+                    {
+                        key:'apple',
+                        value:'Apple'
+                    },
+
+                    {
+                        key:'samsung',
+                        value:'Samsung'
+                    },
+
+                    {
+                        key:'oneplus',
+                        value:'Oneplus'
+                    },
+
+                ],
+                required:true
+            },
+
+            {
+                fieldid:'desc',
+                fieldtype:'textarea',
+                fieldlabel:'Description',
+                fieldplaceholder:"More details",
+                fieldvalue:"",
+                fielddata:[],
+                required:true
+            },
+
+            {
+                fieldid:'price',
+                fieldtype:'textbox',
+                fieldlabel:'Price',
+                fieldplaceholder:"Enter price",
+                fieldvalue:"",
+                fielddata:[],
+                required:true
+                
+            },
+
+            {
+                fieldid:'negotiable',
+                fieldtype:'checkbox',
+                fieldlabel:'Negotiable',
+                fieldplaceholder:"",
+                fieldvalue:"",
+                fielddata:[],
+                required:false
+            },
+
+
+        ]
+    }
+]
+

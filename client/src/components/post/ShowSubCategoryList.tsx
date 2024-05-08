@@ -12,9 +12,9 @@ const ShowSubCategoryList = ({categoryItem}:subCategoryListProps) => {
 
   return (
     <ul>
-      {subCategory?.items.map((item)=> {
+      {subCategory?.items.map((item:any)=> {
         return <li className='p-2 link '>
-            <Link href="#">{item}</Link>
+            <Link href={`/post-ad/create-ad?subcategoryid=${item.id}`}>{item.name}</Link>
           
           </li>
       })}
