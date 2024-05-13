@@ -238,6 +238,16 @@ export const formFields = [
                 required:false
             },
 
+            {
+                fieldid:'images',
+                fieldtype:'file',
+                fieldlabel:'Image',
+                fieldplaceholder:"",
+                fieldvalue:"",
+                fielddata:[],
+                required:true
+            },
+
 
         ]
     }
