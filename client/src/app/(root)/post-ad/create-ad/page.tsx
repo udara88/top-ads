@@ -62,7 +62,7 @@ const CreateAd = () => {
 
   return (
     <div className="max-container min-h-screen bg-white ">
-      <h1 className="pb-4 font-bold text-center pt-4">Create your advertisement</h1>
+      <h1 className="pb-4 font-bold text-center pt-4">Create your advertisements</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
