@@ -15,6 +15,7 @@ type DropDownGroupProp = {
 };
 
 const DropDown = ({ fielddData,fieldPlaceholder,field }: DropDownGroupProp) => {
+  console.log("drop",field)
   return (
     <Select onValueChange={field.onChange}>
       <SelectTrigger >
@@ -24,7 +25,7 @@ const DropDown = ({ fielddData,fieldPlaceholder,field }: DropDownGroupProp) => {
         <SelectGroup>
           {fielddData.map((field)=>(
 
-            <SelectItem value={field.key}>{field.value}</SelectItem>
+            <SelectItem  value={field.key}>{field.value}</SelectItem>
 
           ))}
           </SelectGroup>
