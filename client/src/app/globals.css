@@ -82,7 +82,7 @@
   }
 
   .link{
-    @apply text-blue-600  font-normal
+    @apply text-blue-500 p-4 font-semibold
   }
 
   .input-field {
@@ -90,7 +90,7 @@
   }
 
   .btn{
-    @apply bg-primary px-2 py-2 rounded-md text-white hover:bg-[#c4b5fd]/80 text-center
+    @apply bg-primary px-2 py-2 rounded-md text-white hover:bg-orange-400 text-center
   }
 
 }

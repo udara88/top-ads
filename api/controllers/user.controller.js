@@ -39,6 +39,7 @@ export const signin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
+    console.log(existingUser)
     if (!existingUser) {
       await saveLogInfo(
         req,
@@ -96,7 +97,7 @@ export const signin = async (req, res, next) => {
         _id: existingUser._id,
         firstname: existingUser.firstname || "",
         lastname: existingUser.lastname || "",
-        mobile: existingUser.mobile || "",
+        mobile: existingUser.mobilenumber || "",
         isAuthenticated: existingUser.isAuthenticated || false,
         imageUrl:existingUser.imageUrl || ""
       },

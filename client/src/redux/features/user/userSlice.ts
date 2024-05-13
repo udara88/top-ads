@@ -57,6 +57,7 @@ const userSlice = createSlice({
       .addCase(
         signInAsync.fulfilled,
         (state, action: PayloadAction<signInProps | null>) => {
+          console.log(action.payload?.user)
           const user = {
             user: action.payload?.user || null,
             accessToken: action.payload?.accessToken || "",

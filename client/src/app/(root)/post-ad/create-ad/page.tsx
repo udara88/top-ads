@@ -15,50 +15,43 @@ import {
 import { formFields } from "../../../../../constants";
 import Element from "@/components/shared/Element";
 import { Button } from "@/components/ui/button";
-import { mobileFormSchema } from "@/lib/validator";
-import { useSearchParams } from 'next/navigation'
-import { generateSchemaFromFields,validatorMap } from "@/lib/utils";
-
-
-
+import { useSearchParams } from "next/navigation";
+import { generateSchemaFromFields, validatorMap } from "@/lib/utils";
+import {FileUploader} from "@/components/shared/FileUploader";
+import { useState } from "react";
 
 const CreateAd = () => {
- 
-  
-  const searchParams = useSearchParams()
-  const subCategoryId = searchParams.get('subcategoryid')
-
-
+  console.log('post render')
+  const [files, setFiles] = useState<File[]>([])
+  const searchParams = useSearchParams();
+  const subCategoryId = searchParams.get("subcategoryid");
   const formObj = formFields.find(
     (item) => item.subCategoryId === Number(subCategoryId)
   );
-
-  const validateFields = formObj?.fields.filter(item => item.required === true).map(field=> field.fieldid)
+  const validateFields = formObj?.fields
+    .filter((item) => item.required === true)
+    .map((field) => field.fieldid);
+  const fieldArray: any = validateFields?.map((item: string) => {
+    const itemstr = item as keyof typeof validatorMap;
+    return {
+      name: item,
+      type: validatorMap[itemstr],
+    };
+  });
   
- const fieldArray:any =  validateFields?.map((item:string)=>{
-  const itemstr = item as keyof typeof validatorMap
-  return{
-   
-    name:item,
-    type:validatorMap[itemstr]
-
-  }
- })
-
-
-  
-  const dynamicSchema =  generateSchemaFromFields(fieldArray)
-
+  const dynamicSchema = generateSchemaFromFields(fieldArray);
   const form = useForm<z.infer<typeof dynamicSchema>>({
     resolver: zodResolver(dynamicSchema),
     defaultValues: {
       brand: "",
       desc: "",
       price: "",
+      images:null
     },
   });
 
   async function onSubmit(values: z.infer<typeof dynamicSchema>) {}
+
 
   return (
     <div className="max-container min-h-screen bg-white ">
@@ -69,7 +62,7 @@ const CreateAd = () => {
           className="mt-2 px-4 max-w-[800px]  mx-auto  "
         >
           <div className="flex flex-col gap-5  ">
-            {formObj?.fields.map((item: any) => {
+            {formObj?.fields.filter(item=>item.fieldid !== 'images').map((item: any) => {
               return (
                 <FormField
                   control={form.control}
@@ -77,12 +70,13 @@ const CreateAd = () => {
                   render={({ field }) => (
                     <FormItem className="w-full  mt-6 ">
                       <FormLabel>{item.fieldlabel}</FormLabel>
-                      <FormControl >
+                      <FormControl>
                         <Element
                           fieldtype={item.fieldtype}
                           fieldplaceholder={item.fieldplaceholder}
                           fielddata={item.fielddata}
                           field={field}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -91,17 +85,41 @@ const CreateAd = () => {
                 />
               );
             })}
+
+            <hr />
+
+            <div className="mt-6">
+              <label className="text-sm font-medium">Add photos</label>
+              
+              <FormField
+              control={form.control}
+              name="images"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-72">
+                    <FileUploader 
+                      onFieldChange={field.onChange}
+                      files= {files}
+                      setFiles={setFiles}
+                      
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            </div>
           </div>
           <div className="flex justify-end">
-          <Button 
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            className={`${
-              form.formState.isSubmitting ? "bg-primary/15" : "bg-primary"
-            } text-white col-span-2 mt-4 mb-2`}
-          >
-            Submit
-          </Button>
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              className={`${
+                form.formState.isSubmitting ? "bg-primary/15" : "bg-primary"
+              } text-white col-span-2 mt-4 mb-2`}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Form>

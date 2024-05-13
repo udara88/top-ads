@@ -38,22 +38,6 @@ export const signupFormSchema = z.object({
       
   })
 
-  export const mobileFormSchema = z.object({
-   brand:z.string().min(2,{
-    message:'brand is required'
-   }),
-   desc:z.string().min(1,{
-    message:'description is required'
-   }).max(5000,{
-    message:'no more than 5000 characters'
-   }),
 
-   price: z.coerce.number()
-            .int()
-            .gt(0)
-            .lt(9999999999)
-
-      
-  })
 
   
