@@ -4,10 +4,14 @@ import {sendVerficationEmail} from '../middlewares/users/verifyEmail.js'
 import  {addUser, signin,getUser} from '../controllers/user.controller.js'
 import  useragent  from 'express-useragent'
 import  requestIp  from 'request-ip'
-
+import {verifyToken} from  '../middlewares/auth/verifyToken.js'
+import passport from 'passport'
 
 
 const router = express.Router();
+//const requireAuth = passport.authenticate('jwt', {session: false},null)
+
+
 
 router.post("/signup",
              addUserValidator,
@@ -22,7 +26,7 @@ router.post(
     signin
     );
 
-    router.get("/getuser",getUser)
+    router.get("/getuser",verifyToken,getUser)
 
 
 

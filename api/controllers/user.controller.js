@@ -72,24 +72,25 @@ export const signin = async (req, res, next) => {
 
     const payload = {
       id: existingUser._id,
-      emaill: existingUser.email,
+      email: existingUser.email,
     };
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "10m",
+      expiresIn: "30s",
     });
 
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
+
     const newRefreshToken = new Token({
       user: existingUser._id,
       accessToken,
       refreshToken,
     });
-
     await newRefreshToken.save();
-    res.status(200).json({
+     res.cookie('jwt',refreshToken,{httpOnly:true,maxAge:24*60*60*1000})
+     res.status(200).json({
       accessToken,
       refreshToken,
       accessTokenUpdatedAt: new Date().toLocaleString(),
