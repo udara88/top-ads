@@ -18,7 +18,7 @@ export const handleLogout = async (req, res) => {
   });
 
   if (!foundToken) {
-    res.clearCookie("jwt", { httpOnly: true });
+    res.clearCookie("jwt", { httpOnly: true ,sameSite:'None',secure:true, });
     return res.sendStatus(204);
   }
   
@@ -30,6 +30,6 @@ export const handleLogout = async (req, res) => {
 
     console.log(u);
   }
-  res.clearCookie("jwt", { httpOnly: true });
+  res.clearCookie("jwt", { httpOnly: true ,sameSite:'None',secure:true, });
   res.sendStatus(204);
 };
