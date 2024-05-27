@@ -32,7 +32,15 @@ mongoose.connect(MONGO_URI).then(()=>{
 app.listen(3001,()=>{
     console.log('Server is runing on port 3001');
 })
-app.use(cors());
+
+const corsOptions = {
+    credentials: true,
+    origin: ['http://localhost:3000'] 
+};
+
+
+app.use(cors(corsOptions));
+
 app.use('/users',userRoutes);
 app.use('/auth',contextAuthRoutes);
 app.use('/refresh',refreshRoute);

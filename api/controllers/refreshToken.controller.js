@@ -7,13 +7,12 @@ dotenv.config();
 
 export const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
+ 
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshtoken = cookies.jwt;
   const foundToken = await Token.findOne({
     refreshToken: refreshtoken,
   });
-
-  console.log("foundToken ", foundToken);
 
   const user = await User.findOne({
     _id: foundToken.user,

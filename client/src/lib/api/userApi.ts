@@ -29,8 +29,10 @@ export const createUser = async (formData:signUpFormProps) => {
       
       const {data} = await customFetch.post<signInProps>("/users/signin",payLoad,{
         headers:{
-          "Content-Type":"application/json"
-        }
+          "Content-Type":"application/json",
+          
+        },
+       
       })
       
       return {data,error:null}
@@ -56,3 +58,14 @@ export const createUser = async (formData:signUpFormProps) => {
       return handleApiError(error);
     }
   }
+
+  export const getAceestoken = async()=>{
+    try {
+      const {data} = await customFetch.get("/refresh")
+      return {data,error:""}
+      
+    } catch (error) {
+      return handleApiError(error);
+    }
+  }
+

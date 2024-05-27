@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { signInProps, signUpFormProps, User } from "@/lib/types";
-import { signIn, createUser,getUser } from "@/lib/api/userApi";
+import { signIn, createUser,getUser, getAceestoken } from "@/lib/api/userApi";
 import { stat } from "fs";
 
 
@@ -69,7 +69,7 @@ const userSlice = createSlice({
           state.loading = false;
           state.success =  `${user.user?.firstname}  ${user.user?.lastname} signed in`;
 
-          localStorage.setItem("user", JSON.stringify(user));
+         // localStorage.setItem("user", JSON.stringify(user));
         }
       )
 
@@ -89,6 +89,20 @@ const userSlice = createSlice({
         state.success = action.payload.message ;
       })
       .addCase(signUpAsync.rejected, (state,action:PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getAccessTokenAsyc.pending, (state) => {
+        console.log('pending')
+        state.loading = true;
+      })
+      .addCase(getAccessTokenAsyc.fulfilled, (state,action:PayloadAction<any>) => {
+        
+        state.loading = false;
+       state.accessToken = action.payload.accessToken;
+        
+      })
+      .addCase(getAccessTokenAsyc.rejected, (state,action:PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -147,5 +161,19 @@ export const getCurrentUserAsync = createAsyncThunk(
   }
 )
 
+export const getAccessTokenAsyc = createAsyncThunk(
+  "getAccessTokenAsyc", 
+  async(_,thunkAPI)=>{
+    try {
+      const { data, error } = await getAceestoken()
+      if (error) {
+        
+        return thunkAPI.rejectWithValue(error);
+      }
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  })
 export const {clearAllMessage,logout} =  userSlice.actions;
 export default userSlice.reducer;
