@@ -1,17 +1,11 @@
-import { error } from 'console';
-import {customFetch, handleApiError} from '.'
+
+import {customFetch,customFetchPrivate, handleApiError} from '.'
 import { signInProps, signUpFormProps, User } from '../types';
-
-
-
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 export const createUser = async (formData:signUpFormProps) => {
     try {
-      const { data } = await customFetch.post<string>("/users/signup", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { data } = await customFetch.post<string>("/users/signup", formData);
       
 
       return {data,error:null}
@@ -27,13 +21,7 @@ export const createUser = async (formData:signUpFormProps) => {
     }
     try {
       
-      const {data} = await customFetch.post<signInProps>("/users/signin",payLoad,{
-        headers:{
-          "Content-Type":"application/json",
-          
-        },
-       
-      })
+      const {data} = await customFetchPrivate.post<signInProps>("/users/signin",payLoad)
       
       return {data,error:null}
     } catch (error) {
@@ -51,8 +39,9 @@ export const createUser = async (formData:signUpFormProps) => {
   }
 
   export const getUser = async(email:string)=>{
+    const axiosPrivate = useAxiosPrivate();
     try {
-      const {data} = await customFetch.get<User>(`/users/getuser?email=${email}`)
+      const {data} = await axiosPrivate.get<User>(`/users/getuser?email=${email}`)
       return {data,error:""}
     } catch (error) {
       return handleApiError(error);
@@ -60,8 +49,9 @@ export const createUser = async (formData:signUpFormProps) => {
   }
 
   export const getAceestoken = async()=>{
+    const axiosPrivate = useAxiosPrivate();
     try {
-      const {data} = await customFetch.get("/refresh")
+      const {data} = await axiosPrivate.get("/refresh")
       return {data,error:""}
       
     } catch (error) {
