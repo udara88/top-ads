@@ -18,7 +18,7 @@ import {  useEffect, useState } from "react";
 import DialogBox from "./DialogBox";
 import ToogleMenu from "./ToogleMenu";
 import Logo from "../../../public/assets/images/logo.png";
-import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useToast } from "@/components/ui/use-toast"
 import { clearAllMessage } from "@/redux/features/user/userSlice";
 

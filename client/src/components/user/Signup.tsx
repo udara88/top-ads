@@ -17,7 +17,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { google } from "../../../public/assets/icons";
 import Logo from "../../../public/assets/images/logo.png";
-import { useAppDispatch, useAppSelector } from "@/hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { signInAsync,signUpAsync } from "@/redux/features/user/userSlice";
 
 

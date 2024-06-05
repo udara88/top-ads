@@ -4,9 +4,12 @@ import { customFetchPrivate } from "../lib/api/index";
 import useRefreshToken from "./useRefreshToken";
 import { useAppSelector } from "@/redux/store";
 
+
 const useAxiosPrivate = () => {
-  const refresh = useRefreshToken();
   const { accessToken } = useAppSelector((state) => state.user);
+  const refresh = useRefreshToken();
+
+
   useEffect(() => {
     const requestIntercept = customFetchPrivate.interceptors.request.use(
       (config) => {
@@ -21,11 +24,13 @@ const useAxiosPrivate = () => {
     const responseIntercept = customFetchPrivate.interceptors.response.use(
       (response) => response,
       async (error) => {
+      
         const prevRequest = error?.config;
         if (error?.response?.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          const newAccessToken = await refresh();
-          prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+         const data = await refresh()
+         console.log(data)
+          prevRequest.headers["Authorization"] = `Bearer ${accessToken}`;
           return customFetchPrivate(prevRequest);
         }
         return Promise.reject(error);

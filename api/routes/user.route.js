@@ -26,7 +26,7 @@ router.post(
     signin
     );
 
-    router.get("/getuser",verifyToken,getUser)
+router.get("/getuser",verifyToken,getUser)
 
 
 

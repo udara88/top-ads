@@ -6,8 +6,8 @@ import Token from "../models/token.model.js";
 dotenv.config();
 
 export const handleRefreshToken = async (req, res) => {
+  console.log("handleRefreshToken");
   const cookies = req.cookies;
- 
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshtoken = cookies.jwt;
   const foundToken = await Token.findOne({
@@ -15,14 +15,17 @@ export const handleRefreshToken = async (req, res) => {
   });
 
   const user = await User.findOne({
-    _id: foundToken.user,
+    _id: foundToken.user._id.toString(),
     isAuthenticated: true,
   });
-
-  if (!foundToken) return res.sendStatus(403);
-
+  
+  //if (!foundToken) return res.sendStatus(403);
+  
   jwt.verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err || foundToken.user.toString() !== decoded.id)
+    console.log(foundToken.user.toString())
+    console.log(decoded.id.toString())
+    console.log(foundToken.user.toString() === decoded.id.toString())
+    if (foundToken.user.toString() !== decoded.id.toString())
       return res.sendStatus(403);
     const payload = {
       id: user._id,

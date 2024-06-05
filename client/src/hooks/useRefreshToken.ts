@@ -1,13 +1,13 @@
 "use client"
 import { getAccessTokenAsyc } from '@/redux/features/user/userSlice'
-import {useAppDispatch } from "@/hooks/useTypedSelector";
-
+import { useAppDispatch } from "@/redux/store";
 
  const useRefreshToken  =  () => {
   const dispatch = useAppDispatch();
   const refresh = ()=>{
     
-    dispatch(getAccessTokenAsyc());
+  const data =  dispatch(getAccessTokenAsyc());
+  return data
   }
  return refresh
   

@@ -4,6 +4,7 @@ import Token from "../models/token.model.js";
 
 
 export const handleLogout = async (req, res) => {
+  console.log("handleLogout");
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
   const refreshtoken = cookies.jwt;

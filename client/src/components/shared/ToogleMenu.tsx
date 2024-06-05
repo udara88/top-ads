@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Dispatch, SetStateAction } from "react";
 import Avatar from "./Avatar";
-import { useAppDispatch } from "@/hooks/useTypedSelector";
+import { useAppDispatch } from "@/redux/store";
 import {logout } from "@/redux/features/user/userSlice";
 import { useRouter } from "next/navigation";
 

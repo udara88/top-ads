@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { signInProps, signUpFormProps, User } from "@/lib/types";
 import { signIn, createUser,getUser, getAceestoken } from "@/lib/api/userApi";
-import { stat } from "fs";
 
-
-const { user, accessToken, refreshToken } =
-  localStorage.getItem("user") !== null &&
-  JSON.parse(localStorage.getItem("user") || "");
-
-  
 
 type UserState = {
   user: User | null;
@@ -20,9 +13,9 @@ type UserState = {
 };
 
 const initialState: UserState = {
-  user: user || null,
-  accessToken: accessToken || "",
-  refreshToken: refreshToken || "",
+  user:  null,
+  accessToken: "",
+  refreshToken:  "",
   loading: false,
   error: null,
   success:null
@@ -39,7 +32,6 @@ const userSlice = createSlice({
   },
 
       logout:(state)=>{
-         localStorage.clear()
          state.user = null;
          state.accessToken = null;
          state.refreshToken = null;
@@ -69,7 +61,6 @@ const userSlice = createSlice({
           state.loading = false;
           state.success =  `${user.user?.firstname}  ${user.user?.lastname} signed in`;
 
-         // localStorage.setItem("user", JSON.stringify(user));
         }
       )
 
@@ -93,18 +84,18 @@ const userSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(getAccessTokenAsyc.pending, (state) => {
-        console.log('pending')
         state.loading = true;
       })
       .addCase(getAccessTokenAsyc.fulfilled, (state,action:PayloadAction<any>) => {
-        
         state.loading = false;
-       state.accessToken = action.payload.accessToken;
+       state.accessToken = action.payload.accessToken
         
       })
       .addCase(getAccessTokenAsyc.rejected, (state,action:PayloadAction<any>) => {
+        console.log(action.payload)
         state.loading = false;
         state.error = action.payload;
+        
       })
      
   },
@@ -152,20 +143,21 @@ export const getCurrentUserAsync = createAsyncThunk(
       
       const { data, error } = await getUser(email)
       if (error) {
-        return thunkAPI.rejectWithValue(error);
+        return thunkAPI.rejectWithValue(error.response.data);
       }
       return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+    } catch (err:any) {
+      return thunkAPI.rejectWithValue(err?.response?.data);
     }
   }
 )
 
 export const getAccessTokenAsyc = createAsyncThunk(
   "getAccessTokenAsyc", 
-  async(_,thunkAPI)=>{
+  async(thunkAPI:any)=>{
     try {
       const { data, error } = await getAceestoken()
+   
       if (error) {
         
         return thunkAPI.rejectWithValue(error);

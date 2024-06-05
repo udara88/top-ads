@@ -39,9 +39,9 @@ export const createUser = async (formData:signUpFormProps) => {
   }
 
   export const getUser = async(email:string)=>{
-    const axiosPrivate = useAxiosPrivate();
+   
     try {
-      const {data} = await axiosPrivate.get<User>(`/users/getuser?email=${email}`)
+      const {data} = await customFetchPrivate.get<User>(`/users/getuser?email=${email}`)
       return {data,error:""}
     } catch (error) {
       return handleApiError(error);
@@ -49,12 +49,18 @@ export const createUser = async (formData:signUpFormProps) => {
   }
 
   export const getAceestoken = async()=>{
-    const axiosPrivate = useAxiosPrivate();
+ 
+  
     try {
-      const {data} = await axiosPrivate.get("/refresh")
+      console.log('acctokdofpsfdsf')
+      const {data} = await customFetchPrivate.get("/refresh")
+
+      console.log("data",data)
+      
       return {data,error:""}
       
     } catch (error) {
+      console.log("error",error)
       return handleApiError(error);
     }
   }
